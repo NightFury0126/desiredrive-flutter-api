@@ -1,6 +1,7 @@
 package io.flutter.plugins;
 
 import io.flutter.plugin.common.PluginRegistry;
+import com.lyokone.location.LocationPlugin;
 import de.pdesire.desiredriveapiflutter.DesiredriveApiFlutterPlugin;
 
 /**
@@ -11,6 +12,7 @@ public final class GeneratedPluginRegistrant {
     if (alreadyRegisteredWith(registry)) {
       return;
     }
+    LocationPlugin.registerWith(registry.registrarFor("com.lyokone.location.LocationPlugin"));
     DesiredriveApiFlutterPlugin.registerWith(registry.registrarFor("de.pdesire.desiredriveapiflutter.DesiredriveApiFlutterPlugin"));
   }
 
