@@ -1,26 +1,20 @@
 import 'package:location/location.dart';
 
 class DesireDriveGeocode {
-  DesireDriveGeocode() {
-    _locationObtain();
-  }
-
-  Map<String, double> userLocation;
-
-  _locationObtain() async {
+  Future<Map<String, double>> location() async {
     var locationInit = new Location();
-    try {
-      userLocation = await locationInit.getLocation();
-    } catch (e) {
-      userLocation = null;
-    }
+    return await locationInit.getLocation();
   }
 
-  get latitude {
-    return userLocation['latitude'].toString();
+  Future<double> latitude() async {
+    return await location().then((res) {
+      return res['latitude'];
+    });
   }
 
-  get longitude {
-    return userLocation['longitude'].toString();
+  Future<double> longitude() async {
+    return await location().then((res) {
+      return res['longitude'];
+    });
   }
 }
