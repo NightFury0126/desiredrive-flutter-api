@@ -2,6 +2,7 @@ package io.flutter.plugins;
 
 import io.flutter.plugin.common.PluginRegistry;
 import com.lyokone.location.LocationPlugin;
+import io.flutter.plugins.sharedpreferences.SharedPreferencesPlugin;
 import de.pdesire.desiredriveapiflutter.DesiredriveApiFlutterPlugin;
 
 /**
@@ -13,6 +14,7 @@ public final class GeneratedPluginRegistrant {
       return;
     }
     LocationPlugin.registerWith(registry.registrarFor("com.lyokone.location.LocationPlugin"));
+    SharedPreferencesPlugin.registerWith(registry.registrarFor("io.flutter.plugins.sharedpreferences.SharedPreferencesPlugin"));
     DesiredriveApiFlutterPlugin.registerWith(registry.registrarFor("de.pdesire.desiredriveapiflutter.DesiredriveApiFlutterPlugin"));
   }
 
