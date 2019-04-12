@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'package:http/http.dart' as http;
 
+import 'package:desiredrive_api_flutter/constants/apiconstants.dart';
 import 'package:desiredrive_api_flutter/service/intelligent_query/query_lists.dart';
 import 'package:desiredrive_api_flutter/service/intelligent_query/query_save.dart';
 
@@ -7,7 +9,11 @@ class DesireQuery {
 
   DesireQuerySave _querySave = new DesireQuerySave();
 
-  Future<String> queryOptimization(String query) async {
+  Future<http.Response> query(String query) async {
+    return http.get(APIConstants.API_URL + APIConstants.API_ENDPOINT_STATIONS + "?query=" + await _queryOptimization(query));
+  }
+
+  Future<String> _queryOptimization(String query) async {
     return _querySave.readLastSearch().then((res) {
       var preparedQuery;
 
@@ -30,7 +36,7 @@ class DesireQuery {
   String _marketingQuery(String query) {
     var result = query;
     var found = false;
-    if (result.length > 2) {
+    if (result.length >= 2 && result.length <= 5) {
       for (var city in DesireQueryLists.marketingList) {
         if (found)
           break;
