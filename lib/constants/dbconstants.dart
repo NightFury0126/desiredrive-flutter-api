@@ -1,5 +1,5 @@
 
-class APIConstants {
+class DBConstants {
   static String API_URL = "https://2.db.transport.rest";
   static String API_ENDPOINT_STATIONS = "/stations";
   static String API_ENDPOINT_STATIONS_ALL = "/stations/all";
