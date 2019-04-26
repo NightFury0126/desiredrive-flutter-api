@@ -1,29 +1,20 @@
-import 'package:location/location.dart';
+import 'dart:async';
+import 'package:geolocator/geolocator.dart';
 
 class DesireDriveGeocode {
-  Future<Map<String, double>> location() async {
-    var locationInit = new Location();
-    return await interpreter(locationInit.getLocation());
+  Future<Position> location() async {
+    Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    return position;
   }
 
-  Future<Map<String, double>> interpreter(Future<LocationData> location) async {
-    return location.then((res) {
-      return {
-        'latitude': res.latitude,
-        'longitude': res.latitude
-      };
-    });
-  }
 
   Future<double> latitude() async {
-    return await location().then((res) {
-      return res['latitude'];
-    });
+    Position position = await location();
+    return position.latitude;
   }
 
   Future<double> longitude() async {
-    return await location().then((res) {
-      return res['longitude'];
-    });
+    Position position = await location();
+    return position.longitude;
   }
 }
