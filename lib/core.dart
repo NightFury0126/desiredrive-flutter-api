@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 
-import 'package:desiredrive_api_flutter/models/nominatim_place.dart';
+import 'package:desiredrive_api_flutter/models/osm/nominatim_place.dart';
 import 'package:desiredrive_api_flutter/service/nominatim/nominatim_request.dart';
 import 'package:desiredrive_api_flutter/service/geocode/geocode.dart';
 

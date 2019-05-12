@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:async';
 import 'package:http/http.dart' as http;
-import 'package:desiredrive_api_flutter/models/db_stations.dart';
+import 'package:desiredrive_api_flutter/models/deutschebahn/db_stations.dart';
 import 'package:desiredrive_api_flutter/service/intelligent_query/query.dart';
 import 'package:desiredrive_api_flutter/constants/dbconstants.dart';
 
