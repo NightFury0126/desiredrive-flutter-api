@@ -6,8 +6,11 @@ import 'package:desiredrive_api_flutter/constants/rmvconstants.dart';
 
 class RMVArrivalRequest {
   Future<List<RMVArrivalModel>> getDepartures(String id) {
+    print(RMVConstants.API_URL + RMVConstants.API_ARRIVAL + RMVConstants.API_KEY + '&extId=' + id + '&format=json');
     return http.get(RMVConstants.API_URL + RMVConstants.API_ARRIVAL + RMVConstants.API_KEY + '&extId=' + id + '&format=json').then((res) {
       var decode = json.decode(res.body);
+      decode = decode['Arrival'];
+
       List<RMVArrivalModel> parse = [];
 
       for (var i in decode) {
@@ -15,6 +18,8 @@ class RMVArrivalRequest {
       }
 
       return parse;
+    }).catchError((onError) {
+      return null;
     });
   }
 }

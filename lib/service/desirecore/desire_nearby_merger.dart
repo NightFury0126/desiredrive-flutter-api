@@ -18,8 +18,12 @@ class DesireNearbyMerger {
     }
   }
 
+  failure() {
+    _result.add(DesireNearbyModel.failure());
+  }
 
-  get data {
+
+  List<DesireNearbyModel> getData() {
     return _result;
   }
 

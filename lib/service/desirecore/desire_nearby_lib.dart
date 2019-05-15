@@ -6,10 +6,11 @@ import 'package:desiredrive_api_flutter/service/nominatim/nominatim_request.dart
 import 'package:desiredrive_api_flutter/service/geocode/geocode.dart';
 import 'package:desiredrive_api_flutter/service/desirecore/desire_location_desicion.dart';
 import 'package:desiredrive_api_flutter/service/desirecore/desire_nearby_merger.dart';
+import 'package:desiredrive_api_flutter/models/core/desire_nearby.dart';
 
 class DesireNearbyLib {
 
-  getNearby() async {
+   Future<List<DesireNearbyModel>> getNearby(int index) async {
     DesireDriveGeocode geocode = new DesireDriveGeocode();
     DeutscheBahnDepartureRequest departure = new DeutscheBahnDepartureRequest(
         http_id: 'TPT'
@@ -36,11 +37,14 @@ class DesireNearbyLib {
     }
 
     if (desicion_result.contains('rmv')) {
-      var rmv_query_result = await rmv_query.getMostRelevantStation(nominatim_result.city);
-      var rmv_arrival_result = await arrival.getDepartures(rmv_query_result.id);
+      var rmv_query_result = await rmv_query.getNearestStation(await geocode.latitude(), await geocode.longitude(), index);
+      var rmv_arrival_result = await arrival.getDepartures(rmv_query_result.extID).catchError((onError) {
+        merger.failure();
+      });
       merger.mergeRMV(rmv_arrival_result);
+
     }
 
-    return merger.data;
+    return merger.getData();
   }
 }

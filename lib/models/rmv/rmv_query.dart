@@ -16,13 +16,14 @@ class RMVQueryModel {
   });
 
   factory RMVQueryModel.fromJson(Map<String, dynamic> json) {
+    var json2 = json['StopLocation'];
     return RMVQueryModel(
-        name: json['name'],
-        extID: json['extId'],
-        id: json['id'],
-        lat: json['lat'],
-        lon: json['lon'],
-        raw_response: json
+        name: json2['name'],
+        extID: json2['extId'],
+        id: json2['id'],
+        lat: json2['lat'],
+        lon: json2['lon'],
+        raw_response: json2
     );
   }
 }

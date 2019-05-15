@@ -5,6 +5,7 @@ class DesireNearbyModel {
   final String name;
   final String stop;
   final String origin;
+  final String product;
   final DateTime time;
   final DateTime realtime;
   final String source;
@@ -13,6 +14,7 @@ class DesireNearbyModel {
     this.name,
     this.stop,
     this.origin,
+    this.product,
     this.time,
     this.realtime,
     this.source
@@ -26,6 +28,7 @@ class DesireNearbyModel {
         origin: rmv.origin,
         time: rmv.time,
         realtime: rmv.rtTime,
+        product: rmv.product,
         source: "RMV"
     );
   }
@@ -38,6 +41,20 @@ class DesireNearbyModel {
         origin: db.direction,
         time: db.when,
         realtime: db.when,
+        product: db.line_product,
+        source: "DeutscheBahn"
+    );
+  }
+
+  factory DesireNearbyModel.failure() {
+
+    return DesireNearbyModel(
+        name: "ERROR",
+        stop: "ERROR",
+        origin: "ERROR",
+        time: null,
+        realtime: null,
+        product: null,
         source: "DeutscheBahn"
     );
   }

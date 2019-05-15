@@ -31,12 +31,13 @@ class DesireLocationDesicion {
     var rmv_bbox = _getBbox('rmv');
     // Categorized with priorities
 
-    if (db_bbox['top'] > longitude && db_bbox['bottom'] < longitude && db_bbox['right'] > latitude && db_bbox['left'] < latitude)
-      desicions.add('deutschebahn');
+    //if (db_bbox['top'] < latitude && db_bbox['bottom'] > latitude && db_bbox['right'] > longitude && db_bbox['left'] < longitude)
+      //desicions.add('deutschebahn');
 
-    if (rmv_bbox['top'] > longitude && rmv_bbox['bottom'] < longitude && rmv_bbox['right'] > latitude && rmv_bbox['left'] < latitude)
+    //if (rmv_bbox['top'] < latitude && rmv_bbox['bottom'] > latitude && rmv_bbox['right'] > longitude && rmv_bbox['left'] < longitude)
       desicions.add('rmv');
 
+    print(desicions);
     return desicions;
   }
 }

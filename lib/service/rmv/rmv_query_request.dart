@@ -20,18 +20,20 @@ class RMVQueryRequest {
   }
 
   Future<RMVQueryModel> getMostRelevantStation(String query) {
-    return http.get(RMVConstants.API_URL + RMVConstants.API_QUERY_NAME + RMVConstants.API_KEY + '&input=' + query).then((res) {
+    print(RMVConstants.API_URL + RMVConstants.API_QUERY_NAME + RMVConstants.API_KEY + '&input=' + query + "&format=json");
+    return http.get(RMVConstants.API_URL + RMVConstants.API_QUERY_NAME + RMVConstants.API_KEY + '&input=' + query + "&format=json").then((res) {
       var decode = json.decode(res.body);
 
-      return RMVQueryModel.fromJson(decode[0]);
+      return RMVQueryModel.fromJson(decode['stopLocationOrCoordLocation'][0]);
     });
   }
 
-  Future<RMVQueryModel> getNearestStation(double lat, double lon) {
-    return http.get(RMVConstants.API_URL + RMVConstants.API_QUERY_NAME + RMVConstants.API_KEY + '&originCoordLat=' + lat.toString() + '&originCoordLong=' + lon.toString()).then((res) {
+  Future<RMVQueryModel> getNearestStation(double lat, double lon, int index) {
+    print(RMVConstants.API_URL + RMVConstants.API_QUERY_COORDINATES + RMVConstants.API_KEY + '&originCoordLat=' + lat.toString() + '&originCoordLong=' + lon.toString() + "&format=json");
+    return http.get(RMVConstants.API_URL + RMVConstants.API_QUERY_COORDINATES + RMVConstants.API_KEY + '&originCoordLat=' + lat.toString() + '&originCoordLong=' + lon.toString() + "&format=json").then((res) {
       var decode = json.decode(res.body);
 
-      return RMVQueryModel.fromJson(decode[0]);
+      return RMVQueryModel.fromJson(decode['stopLocationOrCoordLocation'][index]);
     });
   }
 
