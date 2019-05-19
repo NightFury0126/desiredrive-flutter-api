@@ -1,17 +1,17 @@
-class RMVArrivalModel {
+class RMVDepartureModel {
   final String name;
   final String stop;
-  final String origin;
+  final String direction;
   final String product;
   final DateTime date;
   final DateTime time;
   final DateTime rtTime;
   final Map<String, dynamic> raw_response;
 
-  RMVArrivalModel({
+  RMVDepartureModel({
     this.name,
     this.stop,
-    this.origin,
+    this.direction,
     this.product,
     this.date,
     this.time,
@@ -19,12 +19,12 @@ class RMVArrivalModel {
     this.raw_response
   });
 
-  factory RMVArrivalModel.fromJson(Map<String, dynamic> json) {
+  factory RMVDepartureModel.fromJson(Map<String, dynamic> json) {
 
-    return RMVArrivalModel(
-        name: json['name'] ,
+    return RMVDepartureModel(
+        name: json['name'].toString().trim(),
         stop: json['stop'],
-        origin: json['origin'],
+        direction: json['direction'],
         product: json['Product']['catOutL'],
         date: DateTime.parse(json['date']),
         time: rmvDateCreator(json['time']),

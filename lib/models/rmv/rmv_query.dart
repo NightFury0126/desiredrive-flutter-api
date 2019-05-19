@@ -26,4 +26,15 @@ class RMVQueryModel {
         raw_response: json2
     );
   }
+
+  factory RMVQueryModel.failure() {
+    return RMVQueryModel(
+        name: "Keine Ergebnisse",
+        extID: "",
+        id: "",
+        lat: 0,
+        lon: 0,
+        raw_response: null
+    );
+  }
 }

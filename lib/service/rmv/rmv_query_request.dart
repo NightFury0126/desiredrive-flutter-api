@@ -6,9 +6,13 @@ import 'package:desiredrive_api_flutter/constants/rmvconstants.dart';
 
 class RMVQueryRequest {
 
-  Future<List<RMVQueryModel>> getStations(String query) {
-    return http.get(RMVConstants.API_URL + RMVConstants.API_QUERY_NAME + RMVConstants.API_KEY + '&input=' + query).then((query) {
+  static Future<List<RMVQueryModel>> getStations(String query) {
+    return http.get(RMVConstants.API_URL + RMVConstants.API_QUERY_NAME + RMVConstants.API_KEY + '&input=' + query + "&format=json").then((query) {
       var decode = json.decode(query.body);
+      decode = decode['stopLocationOrCoordLocation'] ?? [];
+
+      if (decode == []) return null;
+
       List<RMVQueryModel> parse = [];
 
       for (var i in decode) {
@@ -19,8 +23,13 @@ class RMVQueryRequest {
     });
   }
 
-  Future<RMVQueryModel> getMostRelevantStation(String query) {
-    print(RMVConstants.API_URL + RMVConstants.API_QUERY_NAME + RMVConstants.API_KEY + '&input=' + query + "&format=json");
+  static failure() {
+    List<RMVQueryModel> parse = [];
+    parse.add(RMVQueryModel.failure());
+    return parse;
+  }
+
+  static Future<RMVQueryModel> getMostRelevantStation(String query) {
     return http.get(RMVConstants.API_URL + RMVConstants.API_QUERY_NAME + RMVConstants.API_KEY + '&input=' + query + "&format=json").then((res) {
       var decode = json.decode(res.body);
 
@@ -28,12 +37,17 @@ class RMVQueryRequest {
     });
   }
 
-  Future<RMVQueryModel> getNearestStation(double lat, double lon, int index) {
-    print(RMVConstants.API_URL + RMVConstants.API_QUERY_COORDINATES + RMVConstants.API_KEY + '&originCoordLat=' + lat.toString() + '&originCoordLong=' + lon.toString() + "&format=json");
-    return http.get(RMVConstants.API_URL + RMVConstants.API_QUERY_COORDINATES + RMVConstants.API_KEY + '&originCoordLat=' + lat.toString() + '&originCoordLong=' + lon.toString() + "&format=json").then((res) {
+  static Future<List<RMVQueryModel>> getNearestStations(double lat, double lon, int max) {
+    return http.get(RMVConstants.API_URL + RMVConstants.API_QUERY_COORDINATES + RMVConstants.API_KEY + '&originCoordLat=' + lat.toString() + '&originCoordLong=' + lon.toString() + "&format=json&maxNo=" + max.toString()).then((res) {
       var decode = json.decode(res.body);
+      List<RMVQueryModel> parse = [];
+      decode = decode['stopLocationOrCoordLocation'];
 
-      return RMVQueryModel.fromJson(decode['stopLocationOrCoordLocation'][index]);
+      for (var i in decode) {
+        parse.add(RMVQueryModel.fromJson(i));
+      }
+
+      return parse;
     });
   }
 
